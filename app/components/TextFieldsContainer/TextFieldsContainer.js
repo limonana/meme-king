@@ -28,19 +28,19 @@ export default class TextFieldsContainer extends Component {
                 />
             ]
         }
-    }
+    }  
 
     componentDidMount() {
-            this.resetTextInputs(this.props.canvas)
+        this.resetTextInputs(this.props.canvas)
     }
 
     componentWillReceiveProps(nextProps) {
 
-        const isFormatChanged= (this.props.format !== nextProps.format);
+        const isFormatChanged = (this.props.format !== nextProps.format);
 
         if (isFormatChanged) {
             this.setState({
-                textInputs : []
+                textInputs: []
             }, () => {
                 this.resetTextInputs(nextProps.canvas)
             })
@@ -66,28 +66,18 @@ export default class TextFieldsContainer extends Component {
                 remove={this.removeTextInput}
                 canvas={canvas}
                 position="bottom"
-            /> ,
+            />,
         ];
 
         this.setState({
-            textInputs : initialTextInputs
+            textInputs: initialTextInputs
         })
     }
 
-     addTextInput = () => {
-        this.setState({
-            textInputs: [
-                <MemeTextField
-                    key={_.uniqueId()}
-                    format={this.props.format}
-                    id={_.uniqueId()}
-                    remove={this.removeTextInput}
-                    canvas={this.props.canvas}
-                    position="middle"
-                />,
-                ...this.state.textInputs,
-            ]
-        })
+    addTextInput = () => {
+        var updatedTextInputs = this.state.textInputs;
+        updatedTextInputs.push(createTextField2());
+        this.setState({ textInputs: updatedTextInputs });
     }
 
     removeTextInput = (id) => {
@@ -96,12 +86,21 @@ export default class TextFieldsContainer extends Component {
         })
     }
 
+    createTextField() {
+        return <MemeTextField key={_.uniqueId()} 
+        format={this.props.format} 
+        id={_.uniqueId()} 
+        remove={this.removeTextInput} 
+        canvas={this.props.canvas} 
+        position="middle" />;
+    }
+
     render() {
-       return  (
-           <div className="text-fields-container">
-               {this.state.textInputs}
-           </div>
-       )
+        return (
+            <div className="text-fields-container">
+                {this.state.textInputs}
+            </div>
+        )
     }
 
 }
