@@ -76,7 +76,7 @@ export default class TextFieldsContainer extends Component {
 
     addTextInput = () => {
         var updatedTextInputs = this.state.textInputs;
-        updatedTextInputs.push(createTextField2());
+        updatedTextInputs.push(this.createTextField());
         this.setState({ textInputs: updatedTextInputs });
     }
 
